@@ -1107,5 +1107,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             console.log('User pranked:', savedData);
         }
     </script>
+    <script>
+        // Add Google Analytics
+<script async src="https://www.googletagmanager.com/gtag/js?id=GTM-KZG56NNG"></script>
+
+// Track prank completion
+gtag('event', 'prank_completed', {
+  'event_category': 'engagement',
+  'event_label': 'user_pranked'
+});
+
+// Track share button clicks
+gtag('event', 'share_click', {
+  'event_category': 'social',
+  'event_label': 'whatsapp'
+});
+    </script>
+
 </body>
 </html>
