@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Us in 2025 - Time Travel Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0a1929 0%, #001a33 100%);
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #00f3ff;
+            border-radius: 50%;
+            animation: float 10s infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            50% { transform: translateY(-100px) translateX(50px); }
+        }
+
+        /* Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a1929 0%, #001a33 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loading-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, #00f3ff, #0080ff, #00f3ff);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 2s infinite;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 40px rgba(0, 243, 255, 0.5);
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .loading-bar-container {
+            width: 400px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .loading-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #00f3ff, #0080ff);
+            border-radius: 10px;
+            animation: loadProgress 3s ease-in-out forwards;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.8);
+        }
+
+        @keyframes loadProgress {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        .loading-text {
+            margin-top: 1rem;
+            font-size: 1rem;
+            color: #00f3ff;
+            font-weight: 300;
+        }
+
+        /* Container */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            right: -300px;
+            top: 0;
+            width: 300px;
+            height: 100vh;
+            background: rgba(10, 25, 41, 0.95);
+            backdrop-filter: blur(20px);
+            border-left: 2px solid rgba(0, 243, 255, 0.3);
+            padding: 2rem;
+            transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .sidebar.active {
+            right: 0;
+        }
+
+        .sidebar-toggle {
+            position: fixed;
+            right: 20px;
+            top: 20px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #00f3ff, #0080ff);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1001;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            transition: transform 0.3s;
+            box-shadow: 0 5px 20px rgba(0, 243, 255, 0.4);
+        }
+
+        .sidebar-toggle:hover {
+            transform: scale(1.1) rotate(90deg);
+        }
+
+        .sidebar-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #fff;
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        .sidebar h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: #00f3ff;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(0, 243, 255, 0.1);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            background: rgba(0, 243, 255, 0.2);
+            transform: translateX(-5px);
+            border-color: #00f3ff;
+        }
+
+        .social-icon {
+            width: 30px;
+            height: 30px;
+            font-size: 1.5rem;
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9998;
+            animation: fadeIn 0.3s;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #0a1929 0%, #001a33 100%);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 2px solid #00f3ff;
+            max-width: 500px;
+            text-align: center;
+            animation: slideUp 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 0 50px rgba(0, 243, 255, 0.5);
+            position: relative;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-content h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #00f3ff;
+        }
+
+        .modal-content p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00f3ff, #0080ff);
+            color: #fff;
+            box-shadow: 0 5px 20px rgba(0, 243, 255, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 243, 255, 0.6);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Login Form */
+        .login-container {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .login-container.active {
+            display: flex;
+        }
+
+        .login-form {
+            background: rgba(10, 25, 41, 0.8);
+            backdrop-filter: blur(20px);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 2px solid rgba(0, 243, 255, 0.3);
+            max-width: 500px;
+            width: 100%;
+            animation: slideUp 0.5s;
+        }
+
+        .login-form h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: #00f3ff;
+            text-align: center;
+        }
+
+        .login-form p {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #00f3ff;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(0, 243, 255, 0.1);
+            border: 2px solid rgba(0, 243, 255, 0.3);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #00f3ff;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.3);
+        }
+
+        .security-badges {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 0.5rem 1rem;
+            background: rgba(0, 243, 255, 0.1);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #00f3ff;
+        }
+
+        /* Analysis Screen */
+        .analysis-screen {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        .analysis-screen.active {
+            display: flex;
+        }
+
+        .terminal {
+            width: 800px;
+            max-width: 90%;
+            background: rgba(0, 0, 0, 0.9);
+            border: 2px solid #00f3ff;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 0 50px rgba(0, 243, 255, 0.5);
+        }
+
+        .terminal-header {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27c93f; }
+
+        .terminal-content {
+            font-family: 'Courier New', monospace;
+        }
+
+        .terminal-line {
+            margin-bottom: 0.5rem;
+            color: #00f3ff;
+            opacity: 0;
+            animation: typeIn 0.5s forwards;
+        }
+
+        @keyframes typeIn {
+            to { opacity: 1; }
+        }
+
+        .progress-container {
+            margin: 2rem 0;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #00f3ff;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #00f3ff, #0080ff, #00f3ff);
+            background-size: 200% 100%;
+            animation: progressFill 8s linear forwards, shimmer 2s infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        @keyframes progressFill {
+            to { width: 100%; }
+        }
+
+        .scanning-text {
+            margin-top: 1rem;
+            font-size: 1.1rem;
+            color: #00f3ff;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Roast Page */
+        .roast-page {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        .roast-page.active {
+            display: flex;
+        }
+
+        .roast-content {
+            max-width: 800px;
+            animation: bounceIn 1s;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .roast-emoji {
+            font-size: 8rem;
+            margin-bottom: 1rem;
+            animation: rotate 2s infinite;
+        }
+
+        @keyframes rotate {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-10deg); }
+            75% { transform: rotate(10deg); }
+        }
+
+        .roast-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            color: #00f3ff;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(0, 243, 255, 0.5);
+        }
+
+        .roast-message {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .rejected-stamp {
+            width: 200px;
+            height: 200px;
+            margin: 2rem auto;
+            border: 5px solid #ff0000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: #ff0000;
+            transform: rotate(-15deg);
+            animation: stamp 0.5s;
+        }
+
+        @keyframes stamp {
+            0% { transform: scale(0) rotate(-15deg); }
+            50% { transform: scale(1.2) rotate(-15deg); }
+            100% { transform: scale(1) rotate(-15deg); }
+        }
+
+        /* Share Section */
+        .share-section {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: rgba(0, 243, 255, 0.1);
+            border: 2px solid rgba(0, 243, 255, 0.3);
+            border-radius: 20px;
+        }
+
+        .share-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #00f3ff;
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .share-btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 15px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-5px);
+        }
+
+        .share-whatsapp {
+            background: #25D366;
+            color: #fff;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .share-whatsapp:hover {
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.6);
+        }
+
+        .share-telegram {
+            background: #0088cc;
+            color: #fff;
+            box-shadow: 0 5px 20px rgba(0, 136, 204, 0.4);
+        }
+
+        .share-telegram:hover {
+            box-shadow: 0 8px 30px rgba(0, 136, 204, 0.6);
+        }
+
+        .share-snapchat {
+            background: #FFFC00;
+            color: #000;
+            box-shadow: 0 5px 20px rgba(255, 252, 0, 0.4);
+        }
+
+        .share-snapchat:hover {
+            box-shadow: 0 8px 30px rgba(255, 252, 0, 0.6);
+        }
+
+        .share-copy {
+            background: linear-gradient(135deg, #00f3ff, #0080ff);
+            color: #fff;
+            box-shadow: 0 5px 20px rgba(0, 243, 255, 0.4);
+        }
+
+        .share-copy:hover {
+            box-shadow: 0 8px 30px rgba(0, 243, 255, 0.6);
+        }
+
+        /* Popup */
+        .popup {
+            position: fixed;
+            bottom: -300px;
+            right: 20px;
+            width: 350px;
+            background: linear-gradient(135deg, #0a1929, #001a33);
+            border: 2px solid #00f3ff;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 10px 40px rgba(0, 243, 255, 0.4);
+            transition: bottom 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 9997;
+        }
+
+        .popup.active {
+            bottom: 20px;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: #00f3ff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .popup h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: #00f3ff;
+            margin-bottom: 1rem;
+        }
+
+        .popup-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .popup-link {
+            padding: 0.7rem;
+            background: rgba(0, 243, 255, 0.1);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 8px;
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .popup-link:hover {
+            background: rgba(0, 243, 255, 0.2);
+            border-color: #00f3ff;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(0, 243, 255, 0.3);
+        }
+
+        .footer-socials {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .footer-link {
+            color: #00f3ff;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .footer-link:hover {
+            text-shadow: 0 0 10px #00f3ff;
+        }
+
+        .footer-credit {
+            margin-top: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .footer-credit a {
+            color: #00f3ff;
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .loading-logo { font-size: 2.5rem; }
+            .loading-bar-container { width: 300px; }
+            .modal-content { padding: 2rem; max-width: 90%; }
+            .login-form { padding: 2rem; }
+            .terminal { width: 90%; padding: 1.5rem; }
+            .roast-emoji { font-size: 5rem; }
+            .roast-title { font-size: 2rem; }
+            .share-buttons { flex-direction: column; }
+            .popup { width: 90%; right: 5%; }
+            .sidebar { width: 250px; }
+        }
+
+        /* Glitch Effect */
+        .glitch {
+            animation: glitch 1s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { text-shadow: 0 0 5px #00f3ff; }
+            25% { text-shadow: -2px 0 5px #ff00ff, 2px 0 5px #00ff00; }
+            50% { text-shadow: 2px 0 5px #ff00ff, -2px 0 5px #00ff00; }
+            75% { text-shadow: -2px 0 5px #00ff00, 2px 0 5px #ff00ff; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particles Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-logo">2025</div>
+        <div class="loading-bar-container">
+            <div class="loading-bar"></div>
+        </div>
+        <div class="loading-text">Initializing Time Portal...</div>
+    </div>
+
+    <!-- Sidebar Toggle -->
+    <button class="sidebar-toggle" id="sidebarToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <h3>🔥 Join Samuell's Universe</h3>
+        <a href="https://whatsapp.com/channel/0029VajaZhu8qIzsGs9NdX2O" target="_blank" class="social-link">
+            <span class="social-icon">📢</span>
+            <span>WhatsApp Channel</span>
+        </a>
+        <a href="https://t.me/marxbotinc" target="_blank" class="social-link">
+            <span class="social-icon">✈️</span>
+            <span>Telegram Channel</span>
+        </a>
+        <a href="https://chat.whatsapp.com/CpKEVD7bNGJBjm7kfNpHxE?mode=ems_copy_t" target="_blank" class="social-link">
+            <span class="social-icon">💬</span>
+            <span>WhatsApp Group</span>
+        </a>
+        <a href="https://youtube.com/@marxverse?si=geg4jiYUBm5OO1FG" target="_blank" class="social-link">
+            <span class="social-icon">🎥</span>
+            <span>YouTube Channel</span>
+        </a>
+        <a href="https://snapchat.com/add/yr_kingg" target="_blank" class="social-link">
+            <span class="social-icon">👻</span>
+            <span>Snapchat</span>
+        </a>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal" id="confirmModal">
+        <div class="modal-content">
+            <h2>⚠️ WARNING</h2>
+            <p>You are about to enter 2025. This action cannot be undone. Are you absolutely sure you want to proceed?</p>
+            <div class="btn-group">
+                <button class="btn btn-primary" id="confirmYes">Yes, Take Me to 2025! 🚀</button>
+                <button class="btn btn-secondary" id="confirmNo">No, I'm Scared 😰</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Container -->
+    <div class="login-container" id="loginContainer">
+        <div class="login-form">
+            <h1>TIME PORTAL</h1>
+            <p>Enter your credentials to access 2025</p>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="birthYear">Birth Year</label>
+                    <input type="number" id="birthYear" placeholder="e.g., 1995" min="1900" max="2025" required>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+                    🚀 LAUNCH INTO 2025
+                </button>
+            </form>
+            <div class="security-badges">
+                <span class="badge">🔒 SSL Secured</span>
+                <span class="badge">⛓️ Blockchain Verified</span>
+                <span class="badge">🤖 AI Protected</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Analysis Screen -->
+    <div class="analysis-screen" id="analysisScreen">
+        <div class="terminal">
+            <div class="terminal-header">
+                <div class="terminal-dot dot-red"></div>
+                <div class="terminal-dot dot-yellow"></div>
+                <div class="terminal-dot dot-green"></div>
+            </div>
+            <div class="terminal-content">
+                <div class="terminal-line">>> INITIALIZING TIME TRAVEL PROTOCOL...</div>
+                <div class="terminal-line">>> CONNECTING TO TEMPORAL DATABASE...</div>
+                <div class="terminal-line">>> CONNECTION ESTABLISHED ✓</div>
+            </div>
+            <div class="progress-container">
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" id="progressBar">0%</div>
+                </div>
+                <div class="scanning-text" id="scanningText">Preparing analysis...</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Roast Page -->
+    <div class="roast-page" id="roastPage">
+        <div class="roast-content">
+            <div class="roast-emoji">😭</div>
+            <h1 class="roast-title">SORRY <span id="userName"></span>!</h1>
+            <p class="roast-message">
+                Born in <span id="userYear"></span>?<br>
+                That makes you <span id="userAge"></span> years old!<br><br>
+                <strong class="glitch">YOU ARE TOO OLD TO JOIN 2025! 😭😂</strong>
+            </p>
+            <div class="rejected-stamp">REJECTED</div>
+            
+            <div class="share-section">
+                <h2>😈 Now Prank Your Friends!</h2>
+                <p>Share this epic prank and watch them get roasted too!</p>
+                <div class="share-buttons">
+                    <button class="share-btn share-whatsapp" id="shareWhatsApp">
+                        <span>💚</span> Share on WhatsApp
+                    </button>
+                    <button class="share-btn share-telegram" id="shareTelegram">
+                        <span>✈️</span> Share on Telegram
+                    </button>
+                    <button class="share-btn share-snapchat" id="shareSnapchat">
+                        <span>👻</span> Share on Snapchat
+                    </button>
+                    <button class="share-btn share-copy" id="copyLink">
+                        <span>📋</span> Copy Link
+                    </button>
+                </div>
+            </div>
+
+            <div class="footer">
+                <div class="footer-socials">
+                    <a href="https://whatsapp.com/channel/0029VajaZhu8qIzsGs9NdX2O" target="_blank" class="footer-link">WhatsApp Channel</a>
+                    <a href="https://t.me/marxbotinc" target="_blank" class="footer-link">Telegram</a>
+                    <a href="https://chat.whatsapp.com/CpKEVD7bNGJBjm7kfNpHxE?mode=ems_copy_t" target="_blank" class="footer-link">WhatsApp Group</a>
+                    <a href="https://youtube.com/@marxverse?si=geg4jiYUBm5OO1FG" target="_blank" class="footer-link">YouTube</a>
+                    <a href="https://snapchat.com/add/yr_kingg" target="_blank" class="footer-link">Snapchat</a>
+                </div>
+                <div class="footer-credit">
+                    Created with 🔥 by <a href="https://snapchat.com/add/yr_kingg" target="_blank">Samuell (@yr_kingg)</a><br>
+                    The Ultimate Online Prankster & Senior Web Developer
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup -->
+    <div class="popup" id="popup">
+        <button class="popup-close" id="popupClose">×</button>
+        <h3>🔥 Want More Epic Pranks?</h3>
+        <p style="margin-bottom: 1rem; font-size: 0.9rem;">Join Samuell's channels for more legendary content!</p>
+        <div class="popup-links">
+            <a href="https://whatsapp.com/channel/0029VajaZhu8qIzsGs9NdX2O" target="_blank" class="popup-link">📢 WhatsApp Channel</a>
+            <a href="https://t.me/marxbotinc" target="_blank" class="popup-link">✈️ Telegram Channel</a>
+            <a href="https://youtube.com/@marxverse?si=geg4jiYUBm5OO1FG" target="_blank" class="popup-link">🎥 YouTube Channel</a>
+        </div>
+    </div>
+
+    <script>
+        // Create particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 10 + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Variables
+        let userData = { name: '', year: '', age: 0 };
+        let popupShown = false;
+        let sharePopupShown = false;
+        const currentUrl = window.location.href;
+
+        // Loading Screen
+        setTimeout(() => {
+            document.getElementById('loadingScreen').classList.add('hidden');
+            document.getElementById('confirmModal').classList.add('active');
+        }, 3500);
+
+        // Sidebar Toggle
+        document.getElementById('sidebarToggle').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('active');
+        });
+
+        // Confirmation Modal
+        document.getElementById('confirmYes').addEventListener('click', () => {
+            document.getElementById('confirmModal').classList.remove('active');
+            document.getElementById('loginContainer').classList.add('active');
+        });
+
+        document.getElementById('confirmNo').addEventListener('click', () => {
+            const modalContent = document.querySelector('#confirmModal .modal-content');
+            modalContent.querySelector('p').textContent = 'Too late! You\'re coming with us anyway! 😈';
+            document.getElementById('confirmNo').style.display = 'none';
+            setTimeout(() => {
+                document.getElementById('confirmModal').classList.remove('active');
+                document.getElementById('loginContainer').classList.add('active');
+            }, 2000);
+        });
+
+        // Login Form
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            userData.name = document.getElementById('fullName').value;
+            userData.year = document.getElementById('birthYear').value;
+            userData.age = 2025 - parseInt(userData.year);
+
+            document.getElementById('loginContainer').classList.remove('active');
+            document.getElementById('analysisScreen').classList.add('active');
+            startAnalysis();
+        });
+
+        // Analysis Screen
+        function startAnalysis() {
+            const scanningTexts = [
+                'Scanning temporal coordinates...',
+                'Verifying age eligibility...',
+                'Checking time travel clearance...',
+                'Analyzing birth year data...',
+                'Calculating future compatibility...',
+                'Processing dimensional shift...',
+                'Final verification in progress...',
+                'Compiling results...'
+            ];
+
+            const progressBar = document.getElementById('progressBar');
+            const scanningText = document.getElementById('scanningText');
+            let progress = 0;
+            let textIndex = 0;
+
+            const interval = setInterval(() => {
+                progress += 1;
+                progressBar.style.width = progress + '%';
+                progressBar.textContent = progress + '%';
+
+                if (progress % 13 === 0 && textIndex < scanningTexts.length) {
+                    scanningText.textContent = scanningTexts[textIndex];
+                    textIndex++;
+                }
+
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        document.getElementById('analysisScreen').classList.remove('active');
+                        document.getElementById('roastPage').classList.add('active');
+                        showRoast();
+                    }, 1000);
+                }
+            }, 80);
+        }
+
+        // Show Roast
+        function showRoast() {
+            document.getElementById('userName').textContent = userData.name.toUpperCase();
+            document.getElementById('userYear').textContent = userData.year;
+            document.getElementById('userAge').textContent = userData.age;
+
+            // Show popup after 30 seconds
+            setTimeout(() => {
+                if (!popupShown) {
+                    showPopup();
+                    popupShown = true;
+                }
+            }, 30000);
+        }
+
+        // Share Functions
+        const shareMessage = `I just tried joining 2025... you won't believe what happened! 😱 Try it yourself: ${currentUrl}`;
+
+        document.getElementById('shareWhatsApp').addEventListener('click', () => {
+            window.open(`https://wa.me/?text=${encodeURIComponent(shareMessage)}`, '_blank');
+            showSharePopup();
+        });
+
+        document.getElementById('shareTelegram').addEventListener('click', () => {
+            window.open(`https://t.me/share/url?url=${encodeURIComponent(currentUrl)}&text=${encodeURIComponent('I just tried joining 2025... you won\'t believe what happened! 😱')}`, '_blank');
+            showSharePopup();
+        });
+
+        document.getElementById('shareSnapchat').addEventListener('click', () => {
+            window.open(`https://snapchat.com/add/yr_kingg`, '_blank');
+            showSharePopup();
+        });
+
+        document.getElementById('copyLink').addEventListener('click', () => {
+            navigator.clipboard.writeText(currentUrl).then(() => {
+                const btn = document.getElementById('copyLink');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '<span>✅</span> Link Copied!';
+                btn.style.background = '#27c93f';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = 'linear-gradient(135deg, #00f3ff, #0080ff)';
+                }, 2000);
+                showSharePopup();
+            });
+        });
+
+        // Popup Functions
+        function showPopup() {
+            document.getElementById('popup').classList.add('active');
+        }
+
+        function showSharePopup() {
+            if (!sharePopupShown) {
+                setTimeout(() => {
+                    showPopup();
+                    sharePopupShown = true;
+                }, 2000);
+            }
+        }
+
+        document.getElementById('popupClose').addEventListener('click', () => {
+            document.getElementById('popup').classList.remove('active');
+        });
+
+        // Auto popup after 2 minutes if still on page
+        setTimeout(() => {
+            if (!popupShown && !sharePopupShown) {
+                showPopup();
+            }
+        }, 120000);
+
+        // Save user data
+        if (userData.name && userData.year) {
+            const savedData = {
+                name: userData.name,
+                year: userData.year,
+                age: userData.age,
+                timestamp: new Date().toISOString()
+            };
+            console.log('User pranked:', savedData);
+        }
+    </script>
+</body>
+</html>
